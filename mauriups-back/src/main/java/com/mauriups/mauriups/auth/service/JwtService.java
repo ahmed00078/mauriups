@@ -96,12 +96,18 @@ public class JwtService {
     }
 
     private boolean isValid(String token) {
-        // Implement logic to validate the token
-        return true;
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private String extractEmail(String token) {
-        // Implement logic to extract email from token
-        return "Cannot extract email";
+        return extractClaim(token, Claims::getSubject);
     }
 }
