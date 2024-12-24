@@ -31,6 +31,7 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         try {
+            System.out.println("\n\n\n\n =========== Login request in AuthService: " + request + "\n\n\n\n");
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
