@@ -17,7 +17,7 @@ public class Startup {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = true) // Or @Column if mandatory
+    @Column(nullable = true)
     private String sector;
 
     @Column(nullable = true)
