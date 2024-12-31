@@ -21,9 +21,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+@RequiredArgsConstructor(staticName = "of")
 public class SecurityConfig {
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
+
+    private SecurityConfig of(UserRepository userRepository) {
+        this.userRepository = userRepository;
+        return new SecurityConfig();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

@@ -9,6 +9,10 @@ public class RegisterRequest {
     private String first_name;
     private String last_name;
 
+    public String getEmail() {
+        return email;
+    }
+
     public CharSequence getPassword() {
         return password_hash;
     }

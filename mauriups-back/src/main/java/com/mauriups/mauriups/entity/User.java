@@ -38,6 +38,22 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
     @Override
     public String getPassword() {
         return password_hash;
@@ -54,6 +70,18 @@ public class User implements UserDetails {
 
     public String getLastName() {
         return last_name;
+    }
+
+    public String setEmail(String email) {
+        return this.email = email;
+    }
+
+    public UserRole setRole(UserRole role) {
+        return this.role = role;
+    }
+
+    public UserStatus setStatus(UserStatus status) {
+        return this.status = status;
     }
 
     public void setPassword(String encode) {
