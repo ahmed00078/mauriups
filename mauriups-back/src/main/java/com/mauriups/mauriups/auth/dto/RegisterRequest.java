@@ -17,11 +17,11 @@ public class RegisterRequest {
         return password_hash;
     }
 
-    public Object getFirstName() {
+    public String getFirstName() {
         return first_name;
     }
 
-    public Object getLastName() {
+    public String getLastName() {
         return last_name;
     }
 }

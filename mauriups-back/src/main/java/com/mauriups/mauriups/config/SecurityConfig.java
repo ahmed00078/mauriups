@@ -38,6 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/auth/**").permitAll();
                     auth.requestMatchers("/api/startups/**").permitAll();
+                    auth.requestMatchers("/api/users/**").permitAll();
                     auth.requestMatchers("/api/admin/**").hasRole("ADMIN");
                     auth.requestMatchers("/api/startup-owner/**").hasRole("STARTUP_OWNER");
                     auth.requestMatchers("/v3/api-docs/**", "/swagger-resources/*", "/swagger-ui/**", "/swagger-ui.html").permitAll(); // Ajout pour Springdoc
@@ -49,7 +50,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userRepository.findByEmail(username)
+        return username -> (org.springframework.security.core.userdetails.UserDetails) userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
