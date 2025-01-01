@@ -12,10 +12,6 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Long getId() {
-        return id;
-    }
-
     @Column(nullable = false, length = 100)
     private String city;
 
@@ -28,5 +24,9 @@ public class Location {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+    }
+
+    public Long getId() {
+        return id;
     }
 }
