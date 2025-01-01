@@ -1,5 +1,6 @@
 package com.mauriups.mauriups.controller;
 
+import com.mauriups.mauriups.dto.StartupDTO;
 import com.mauriups.mauriups.entity.Startup;
 import com.mauriups.mauriups.service.StartupService;
 import org.slf4j.Logger;
@@ -30,9 +31,13 @@ public class StartupController {
     }
 
     @PostMapping
-    public Startup createStartup(@RequestBody Startup startup) {
-        startup.setId(null);
-        return startupService.createStartup(startup);
+    public ResponseEntity<?> createStartup(@RequestBody StartupDTO startupDTO) {
+        try {
+            Startup createdStartup = startupService.createStartup(startupDTO);
+            return ResponseEntity.ok(createdStartup);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")

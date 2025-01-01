@@ -3,6 +3,9 @@ package com.mauriups.mauriups.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "startups")
@@ -11,37 +14,75 @@ public class Startup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
+
+    @Column(nullable = false, unique = true)
+    private String slug;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = true)
-    private String sector;
+    @Column(length = 500)
+    private String shortDescription;
 
-    @Column(nullable = true)
-    private String location;
+    @ManyToOne
+    @JoinColumn(name = "sector_id")
+    private Sector sector;
 
-    @Column(nullable = true)
-    private String website;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
-    @Column(nullable = true)
+    @Column(name = "founding_date")
+    private LocalDate foundingDate;
+
+    @Column(name = "website_url")
+    private String websiteUrl;
+
+    @Column
     private String email;
 
-    @Column(nullable = true)
+    @Column(length = 20)
     private String phone;
 
-    public String getSlug() {
-        return slug;
+    @Column(name = "logo_url")
+    private String logoUrl;
+
+    @Column(name = "employee_count")
+    private Integer employeeCount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('DRAFT', 'PENDING', 'PUBLISHED', 'ARCHIVED')")
+    private StartupStatus status = StartupStatus.DRAFT;
+
+    @Column
+    private Boolean verified = false;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private User createdBy;
+
+    @ManyToOne
+    @JoinColumn(name = "updated_by")
+    private User updatedBy;
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
-    public void setSlug(String slug) {
-        this.slug = slug;
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
-
-    @Column(nullable = false)
-    private String slug;
 
     public Long getId() {
         return id;
@@ -55,16 +96,16 @@ public class Startup {
         return description;
     }
 
-    public String getSector() {
-        return sector;
+    public Long getSector() {
+        return sector.getId();
     }
 
-    public String getLocation() {
-        return location;
+    public Long getLocation() {
+        return location.getId();
     }
 
     public String getWebsite() {
-        return website;
+        return websiteUrl;
     }
 
     public String getEmail() {
@@ -87,16 +128,16 @@ public class Startup {
         this.description = description;
     }
 
-    public void setSector(String sector) {
+    public void setSector(Sector sector) {
         this.sector = sector;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 
-    public void setWebsite(String website) {
-        this.website = website;
+    public void setWebsite(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
     }
 
     public void setEmail(String email) {
@@ -105,5 +146,37 @@ public class Startup {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public void setEmployeeCount(Integer employeeCount) {
+        this.employeeCount = employeeCount;
+    }
+
+    public void setStatus(StartupStatus status) {
+        this.status = status;
+    }
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
     }
 }
