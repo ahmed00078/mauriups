@@ -1,6 +1,7 @@
 package com.mauriups.mauriups.controller;
 
 import com.mauriups.mauriups.dto.StartupDTO;
+import com.mauriups.mauriups.dto.StartupUpdateDTO;
 import com.mauriups.mauriups.entity.Startup;
 import com.mauriups.mauriups.service.StartupService;
 import org.slf4j.Logger;
@@ -41,8 +42,8 @@ public class StartupController {
     }
 
     @PutMapping("/{id}")
-    public Startup updateStartup(@PathVariable Long id, @RequestBody Startup startup) {
-        return startupService.updateStartup(id, startup);
+    public ResponseEntity<Startup> updateStartup(@PathVariable Long id, @RequestBody StartupUpdateDTO updateDTO) {
+        return ResponseEntity.ok(startupService.updateStartup(id, updateDTO));
     }
 
     @DeleteMapping("/{id}")

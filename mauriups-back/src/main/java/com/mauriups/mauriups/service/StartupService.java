@@ -1,6 +1,7 @@
 package com.mauriups.mauriups.service;
 
 import com.mauriups.mauriups.dto.StartupDTO;
+import com.mauriups.mauriups.dto.StartupUpdateDTO;
 import com.mauriups.mauriups.entity.Location;
 import com.mauriups.mauriups.entity.Sector;
 import com.mauriups.mauriups.entity.Startup;
@@ -110,13 +111,32 @@ public class StartupService {
         return "slug";
     }
 
-    public Startup updateStartup(Long id, Startup startupDetails) {
-        Startup startup = getStartupById(id);
-        startup.setName(startupDetails.getName());
-        startup.setDescription(startupDetails.getDescription());
-        startup.setWebsite(startupDetails.getWebsite());
-        startup.setEmail(startupDetails.getEmail());
-        startup.setPhone(startupDetails.getPhone());
+    @Transactional
+    public Startup updateStartup(Long id, StartupUpdateDTO dto) {
+        Startup startup = startupRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Startup not found"));
+
+        // Mise à jour des champs simples
+        startup.setName(dto.getName());
+        startup.setDescription(dto.getDescription());
+        startup.setShortDescription(dto.getShortDescription());
+        startup.setWebsiteUrl(dto.getWebsiteUrl());
+        startup.setEmail(dto.getEmail());
+        startup.setPhone(dto.getPhone());
+
+        // Mise à jour des relations
+        if (dto.getSectorId() != null) {
+            Sector sector = sectorRepository.findById(dto.getSectorId())
+                    .orElseThrow(() -> new RuntimeException("Sector not found"));
+            startup.setSector(sector);
+        }
+
+        if (dto.getLocationId() != null) {
+            Location location = locationRepository.findById(dto.getLocationId())
+                    .orElseThrow(() -> new RuntimeException("Location not found"));
+            startup.setLocation(location);
+        }
+
         return startupRepository.save(startup);
     }
 
