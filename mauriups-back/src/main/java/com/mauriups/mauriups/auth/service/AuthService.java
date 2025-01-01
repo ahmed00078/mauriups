@@ -45,13 +45,18 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         try {
+            System.out.println("\n\n\n\n =========== Login request in AuthService: " + request.getEmail() + request.getPassword() + "\n\n\n\n");
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
+            System.out.println("\n\n\n\n =========== Authentication in AuthService: " + authentication.getName() + "\n\n\n\n");
 
             User user = (User) authentication.getPrincipal();
             String token = jwtService.generateToken(user);
             String refreshToken = jwtService.generateRefreshToken(user);
+
+            System.out.println("\n\n\n\n =========== User in AuthService: " + user + "\n\n\n\n");
+            System.out.println("\n\n\n\n =========== Token in AuthService: " + token + "\n\n\n\n");
 
             return AuthResponse.builder()
                     .token(token)

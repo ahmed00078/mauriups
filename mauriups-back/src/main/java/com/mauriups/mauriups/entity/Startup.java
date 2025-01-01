@@ -29,6 +29,20 @@ public class Startup {
     @Column(nullable = true)
     private String email;
 
+    @Column(nullable = true)
+    private String phone;
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    @Column(nullable = false)
+    private String slug;
+
     public Long getId() {
         return id;
     }
@@ -43,6 +57,22 @@ public class Startup {
 
     public String getSector() {
         return sector;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     public void setId(Long id) {
@@ -76,23 +106,4 @@ public class Startup {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    @Column(nullable = true)
-    private String phone;
 }
