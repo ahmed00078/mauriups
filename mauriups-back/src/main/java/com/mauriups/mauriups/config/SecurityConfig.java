@@ -40,6 +40,7 @@ public class SecurityConfig {
                     auth.requestMatchers("/api/startups/**").permitAll();
                     auth.requestMatchers("/api/users/**").permitAll();
                     auth.requestMatchers("/api/sectors/**").permitAll();
+                    auth.requestMatchers("/api/locations/**").permitAll();
                     auth.requestMatchers("/api/admin/**").hasRole("ADMIN");
                     auth.requestMatchers("/api/startup-owner/**").hasRole("STARTUP_OWNER");
                     auth.requestMatchers("/v3/api-docs/**", "/swagger-resources/*", "/swagger-ui/**", "/swagger-ui.html").permitAll(); // Ajout pour Springdoc
