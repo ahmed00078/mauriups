@@ -31,7 +31,6 @@ public class StartupController {
 
     @PostMapping
     public Startup createStartup(@RequestBody Startup startup) {
-        // Ajouter cette ligne
         startup.setId(null);
         return startupService.createStartup(startup);
     }
