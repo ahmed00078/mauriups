@@ -1,4 +1,4 @@
-Je vais vous proposer une organisation complète des routes API pour votre backend Spring Boot.
+Une organisation complète des routes API pour mon backend Spring Boot.
 
 
 
@@ -120,7 +120,7 @@ public class SettingsController {
 Pour implémenter ces routes efficacement, voici la structure de projet recommandée :
 
 ```bash
-src/main/java/com/startup/directory/
+src/main/java/com/mauriups/mauriups/
 ├── config/
 │   ├── SecurityConfig.java
 │   ├── JwtConfig.java
@@ -171,9 +171,3 @@ Pour commencer l'implémentation, je suggère cet ordre :
    - Authentification (register/login)
    - CRUD basique des startups
    - Gestion des utilisateurs
-
-Voulez-vous que je détaille :
-1. L'implémentation d'un controller spécifique ?
-2. La configuration de sécurité ?
-3. Les DTOs pour une route particulière ?
-4. Les services avec la logique métier ?
