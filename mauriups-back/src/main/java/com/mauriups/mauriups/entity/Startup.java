@@ -97,10 +97,16 @@ public class Startup {
     }
 
     public Long getSector() {
+        if (sector == null) {
+            return null;
+        }
         return sector.getId();
     }
 
     public Long getLocation() {
+        if (location == null) {
+            return null;
+        }
         return location.getId();
     }
 
